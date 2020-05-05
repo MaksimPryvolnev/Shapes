@@ -22,11 +22,11 @@ class Shape {
     area() {
     }
 
-    calcSide(firstPoint, secondPoint) {
+    getSide(firstPoint, secondPoint) {
         return Math.abs(Math.sqrt((secondPoint.x - firstPoint.x) ** 2 + (secondPoint.y - firstPoint.y) ** 2))
     }
 
-    calcPerimeter(sides = [this.A, this.B, this.C, this.D]) {
+    getPerimeter(sides = [this.A, this.B, this.C, this.D]) {
         return sides.reduce((accum, side) => accum + side, 0)
     }
 
@@ -57,13 +57,13 @@ class Triangle extends Shape {
     constructor(points) {
         super(points)
         this.sortedSides = [
-            this.calcSide(this.a, this.b), 
-            this.calcSide(this.b, this.c), 
-            this.calcSide(this.c, this.a)
+            this.getSide(this.a, this.b), 
+            this.getSide(this.b, this.c), 
+            this.getSide(this.c, this.a)
         ].sort((a, b) => a - b)
-        this.A = this.calcSide(this.a, this.b)
-        this.B = this.calcSide(this.b, this.c)
-        this.C = this.calcSide(this.c, this.a)
+        this.A = this.getSide(this.a, this.b)
+        this.B = this.getSide(this.b, this.c)
+        this.C = this.getSide(this.c, this.a)
     }
 
     area() {}
@@ -88,7 +88,6 @@ class Right extends Triangle {
         super(points)
     }
     area() {
-
         return (this.sortedSides[0] * this.sortedSides[1]) / 2
     }
 }
@@ -105,12 +104,12 @@ class Isosceles extends Triangle {
 class Fourangle extends Shape {
     constructor(points) {
         super(points)
-        this.A = this.calcSide(this.a, this.b)
-        this.B = this.calcSide(this.b, this.c)
-        this.C = this.calcSide(this.c, this.d)
-        this.D = this.calcSide(this.d, this.a)
-        this.p = this.calcSide(this.a, this.c)
-        this.q = this.calcSide(this.b, this.d)
+        this.A = this.getSide(this.a, this.b)
+        this.B = this.getSide(this.b, this.c)
+        this.C = this.getSide(this.c, this.d)
+        this.D = this.getSide(this.d, this.a)
+        this.p = this.getSide(this.a, this.c)
+        this.q = this.getSide(this.b, this.d)
     }
     getType() {
         if (this.A == this.B == this.C == this.D && this.p !== this.q) return Rhombus
